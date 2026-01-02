@@ -1,0 +1,16 @@
+name: Actualiza código
+on:
+  repository_dispatch:   # lo llamaremos desde fuera
+    types: [nuevo-codigo]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - run: echo "${{ github.event.client_payload.text }}" > codigo.txt
+    - run: |
+        git config user.name "bot"
+        git config user.email "bot@users.noreply.github.com"
+        git add codigo.txt
+        git diff --quiet && git diff --staged --quiet || (git commit -m "nuevo código" && git push)
