@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Códigos de ingreso</title>
+<style>
+body{font-family:Arial;background:#111;color:#0f0;text-align:center;margin-top:10vh}
+pre{font-size:3rem;letter-spacing:.2rem}
+</style>
+</head>
+<body>
+<h1>Código vigente</h1>
+<pre id="c">Esperando…</pre>
+
+<script>
+// lee el archivo que subiremos con el código
+fetch('codigo.txt').then(r=>r.text()).then(t=>{
+  document.getElementById('c').textContent = t.trim() || 'Sin código';
+});
+// refresca cada 5 s
+setInterval(()=>location.reload(), 5000);
+</script>
+</body>
+</html>
